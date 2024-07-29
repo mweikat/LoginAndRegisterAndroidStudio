@@ -1,36 +1,35 @@
 <resources>
-    <string name="app_name">LoginAndRegisterAndroidStudio</string>
-    <string name="logInTitle">Inicia Sesión</string>
-    <string name="logInForgot">Olvidó su contraseña?</string>
+    <string name="app_name" translatable="false">LoginAndRegisterAndroidStudio</string>
+    <string name="logInTitle">App Login</string>
+    <string name="logInForgot"><![CDATA[<u>Forgot Password</u>]]></string>
     <string name="logInGBtn">Google</string>
     <string name="logInInputEmail">Email</string>
-    <string name="logInInputPass">Contraseña</string>
-    <string name="logInBtn">Ingresar</string>
-    <string name="logInOr">¿No tienes cuenta? </string>
-    <string name="logInRegisterText">Registrate Aquí</string>
-    <string name="logInMsg1">Favor Ingrese su Email y Contraseña</string>
-    <string name="logInMsg2">Debe ingresar un email válido</string>
+    <string name="logInInputPass">Password</string>
+    <string name="logInBtn">Log in</string>
+    <string name="logInOr">¿Don\'t have account? </string>
+    <string name="logInRegisterText"><![CDATA[<u>Register Here</u>]]></string>
+    <string name="logInMsg1">Your Email and Password</string>
+    <string name="logInMsg2">Email required</string>
     <string name="logInSnackText">OK</string>
 
 
-    <string name="regTitle">Registrate</string>
-    <string name="regName">Nombre</string>
-    <string name="regLastName">Apellido</string>
+    <string name="regTitle">Register Here</string>
+    <string name="regName">Name</string>
+    <string name="regLastName">Last Name</string>
     <string name="regInputEmail">Email</string>
-    <string name="regInputPass">Contraseña</string>
-    <string name="regInputPassConfirm">Confirme Contraseña</string>
-    <string name="regBtn">Registrarse</string>
-    <string name="regRegisterText">Ya tiene una cuenta?</string>
-    <string name="regInMsg1">Favor Ingrese todos los campos</string>
-    <string name="regInMsg2">Las contraseñas no son iguales</string>
+    <string name="regInputPass">Password</string>
+    <string name="regInputPassConfirm">Confirm Password</string>
+    <string name="regBtn">Register</string>
+    <string name="regRegisterText">do you have an account?</string>
+    <string name="regInMsg1">Please, fill all fields</string>
+    <string name="regInMsg2">Passwords not match</string>
 
-    <string name="regOkMsg">Se ha registrado su cuenta, favor inicie sesión</string>
-    <string name="regOkVolver">Volver al Login</string>
+    <string name="regOkMsg">Now you are logged, please go to loggin</string>
+    <string name="regOkVolver">Back Login</string>
 
-    <string name="forgotTitleEmail">Recuperar Contraseña</string>
+    <string name="forgotTitleEmail">Recover Password</string>
     <string name="forgotLabel">Ingresa tu email asociado a la cuenta </string>
-    <string name="forgotbtn">Enviar </string>
+    <string name="forgotbtn">Send</string>
     <string name="forgotMsg1">Favor ingrese un mail asociado a su cuenta</string>
-
 
 </resources>

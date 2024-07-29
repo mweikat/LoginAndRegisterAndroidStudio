@@ -29,18 +29,24 @@ class LoginActivity : BaseAuthActivity() , AuthContract.LoginView {
         (findViewById<Button>(teno.app.loginandregisterandroidstudio.R.id.btnLogin)).setOnClickListener{
             sigIn()
         }
-        (findViewById<Button>(teno.app.loginandregisterandroidstudio.R.id.forgotBtn)).setOnClickListener{
-            navigateToForgotPass()
-        }
+
         //presenter
         presenter = LoginPresenter(LoginInteractorImpl())
         presenter.attacheView(this)
+
         //register button
         val textRegister = findViewById<Button>(R.id.register)
-        textRegister.text = Html.fromHtml("<u>Registrate Aqu&iacute;</u>",Html.FROM_HTML_MODE_COMPACT);
+        textRegister.text = Html.fromHtml(getString(R.string.logInRegisterText),Html.FROM_HTML_MODE_COMPACT)
         textRegister.setOnClickListener{
             navigateToRegister()
         }
+
+        val textForgotPass = findViewById<Button>(R.id.forgotBtn)
+        textForgotPass.text = Html.fromHtml(getString(R.string.logInForgot),Html.FROM_HTML_MODE_COMPACT)
+        textForgotPass.setOnClickListener{
+            navigateToForgotPass()
+        }
+
     }
 
     override fun getLayout(): Int {
