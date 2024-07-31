@@ -7,16 +7,15 @@ import retrofit2.Response
 import teno.app.loginandregisterandroidstudio.auth.interactors.ApiAuthServices
 import teno.app.loginandregisterandroidstudio.auth.interactors.registerInteractor.reqandres.RegisterRequest
 import teno.app.loginandregisterandroidstudio.auth.interactors.registerInteractor.reqandres.RegisterResponse
+import javax.inject.Inject
 
-class RegisterInteractorImpl:RegisterInteractor {
-
-    private val apiServiceReg: ApiAuthServices by lazy{
-        ApiAuthServices.create()
-    }
+class RegisterInteractorImpl @Inject constructor(
+    private var apiservice:ApiAuthServices
+):RegisterInteractor {
 
     override fun registerWhitEmailAndPass( email: String, password: String, name:String, lastName:String, listener: RegisterInteractor.RegisterCallBack) {
         val registerRq = RegisterRequest(email,password, name, lastName)
-        val call = apiServiceReg.postRegister(registerRq)
+        val call = apiservice.postRegister(registerRq)
         call.enqueue(object : Callback<RegisterResponse>{
             override  fun onResponse(call: Call<RegisterResponse>, response:Response<RegisterResponse>){
                 if (response.isSuccessful)

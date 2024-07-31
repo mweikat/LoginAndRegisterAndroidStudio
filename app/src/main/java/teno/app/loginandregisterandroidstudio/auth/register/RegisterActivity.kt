@@ -3,22 +3,25 @@ package teno.app.loginandregisterandroidstudio.auth.register
 import android.content.Intent
 import android.os.Bundle
 import android.text.Html
-import android.util.Patterns
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
+import dagger.hilt.android.AndroidEntryPoint
 import teno.app.loginandregisterandroidstudio.R
 import teno.app.loginandregisterandroidstudio.auth.AuthContract
 import teno.app.loginandregisterandroidstudio.auth.BaseAuthActivity
-import teno.app.loginandregisterandroidstudio.auth.interactors.registerInteractor.RegisterInteractorImpl
-import teno.app.loginandregisterandroidstudio.ready.main.MainActivity
-import java.util.regex.Pattern
+import teno.app.loginandregisterandroidstudio.common.utils.Functions
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class RegisterActivity : BaseAuthActivity(), AuthContract.RegisterView {
 
-    private lateinit var presenter: RegisterPresenter
+    @Inject
+    lateinit var presenter: RegisterPresenter
+
+    @Inject
+    lateinit var functions: Functions
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +39,6 @@ class RegisterActivity : BaseAuthActivity(), AuthContract.RegisterView {
             navigateToLogin()
         }
         //presenter
-        presenter = RegisterPresenter(RegisterInteractorImpl())
         presenter.attacheView(this)
 
         (findViewById<Button>(R.id.btnRegister)).setOnClickListener{
@@ -49,7 +51,7 @@ class RegisterActivity : BaseAuthActivity(), AuthContract.RegisterView {
     }
 
     override fun showError(msgError: String) {
-        msgSnackBar(0,msgError)
+        functions.msgSnackBar(0,msgError,findViewById<View>(android.R.id.content))
     }
 
     override fun showProgressBar() {
@@ -68,12 +70,12 @@ class RegisterActivity : BaseAuthActivity(), AuthContract.RegisterView {
         val lastName:String = (findViewById<TextInputLayout>(R.id.lastName)).editText?.text.toString().trim()
 
         if(presenter.checkEmptyFields(email,pass,pass2, name, lastName))
-            msgSnackBar(R.string.regInMsg1,"")
+            functions.msgSnackBar(R.string.regInMsg1,"",findViewById<View>(android.R.id.content))
         else{
-            if(!validEmail(email))
-                msgSnackBar(R.string.logInMsg2,"")
+            if(!functions.validEmail(email))
+                functions.msgSnackBar(R.string.logInMsg2,"",findViewById<View>(android.R.id.content))
             else if(pass != pass2)
-                msgSnackBar(R.string.regInMsg2,"")
+                functions.msgSnackBar(R.string.regInMsg2,"",findViewById<View>(android.R.id.content))
             else
                 presenter.registerEmailAndPassword(email, pass, name, lastName)
         }
@@ -86,26 +88,6 @@ class RegisterActivity : BaseAuthActivity(), AuthContract.RegisterView {
 
     override fun navigateSuccessReg() {
         startActivity(Intent(this, ResultRegisterOKActivity::class.java))
-    }
-
-    private fun msgSnackBar(msg:Int, msgText:String){
-
-        val contextView = findViewById<View>(R.id.main)
-        if(msg==0)
-            Snackbar.make(contextView, msgText, Snackbar.LENGTH_SHORT).setAction(R.string.logInSnackText) {
-                // Responds to click on the action
-            }.show()
-        else
-            Snackbar.make(contextView, msg, Snackbar.LENGTH_SHORT).setAction(R.string.logInSnackText) {
-                // Responds to click on the action
-            }.show()
-    }
-
-    private fun validEmail(email: String): Boolean {
-
-        val pattern: Pattern = Patterns.EMAIL_ADDRESS
-        val result:Boolean = pattern.matcher(email).matches()
-        return result
     }
 
 }

@@ -2,15 +2,12 @@ package teno.app.loginandregisterandroidstudio.auth.forgotPass
 
 import teno.app.loginandregisterandroidstudio.auth.AuthContract
 import teno.app.loginandregisterandroidstudio.auth.interactors.forgotPass.ForgotPassInteractor
+import javax.inject.Inject
 
-class ForgotPassPresenter(forgotInteractor:ForgotPassInteractor):AuthContract.ForgotPassPresenter {
+class ForgotPassPresenter @Inject constructor(private var forgotInteractor:ForgotPassInteractor):AuthContract.ForgotPassPresenter {
 
     var view:AuthContract.ForgotPassView? = null
-    var forgotInteractor: ForgotPassInteractor? = null
 
-    init{
-        this.forgotInteractor = forgotInteractor
-    }
 
     override fun attacheView(view: AuthContract.ForgotPassView) {
         this.view = view
@@ -26,7 +23,7 @@ class ForgotPassPresenter(forgotInteractor:ForgotPassInteractor):AuthContract.Fo
 
     override fun sendEmailRecover(email:String) {
         view?.showProgressBar()
-        forgotInteractor?.forgotPassSendEmail(email, object: ForgotPassInteractor.ForgotCallBack{
+        forgotInteractor.forgotPassSendEmail(email, object: ForgotPassInteractor.ForgotCallBack{
             override fun onForgotSuccess(message:String) {
                 if(isViewAttached()){
                     view?.hideProgressBar()

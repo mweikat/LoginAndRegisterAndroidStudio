@@ -3,25 +3,28 @@ package teno.app.loginandregisterandroidstudio.auth.login
 import android.content.Intent
 import android.os.Bundle
 import android.text.Html
-import android.util.Patterns
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
-import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
+import dagger.hilt.android.AndroidEntryPoint
 import teno.app.loginandregisterandroidstudio.R
 import teno.app.loginandregisterandroidstudio.auth.AuthContract
 import teno.app.loginandregisterandroidstudio.auth.BaseAuthActivity
 import teno.app.loginandregisterandroidstudio.auth.forgotPass.ForgotPassActivity
-import teno.app.loginandregisterandroidstudio.auth.interactors.loginInteractor.LoginInteractorImpl
 import teno.app.loginandregisterandroidstudio.auth.register.RegisterActivity
-import teno.app.loginandregisterandroidstudio.ready.main.MainActivity
-import java.util.regex.Pattern
+import teno.app.loginandregisterandroidstudio.common.utils.Functions
+import teno.app.loginandregisterandroidstudio.loggedIn.main.MainActivity
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class LoginActivity : BaseAuthActivity() , AuthContract.LoginView {
 
-    private lateinit var presenter: LoginPresenter
+    @Inject
+    lateinit var presenter: LoginPresenter
+
+    @Inject
+    lateinit var functions: Functions
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +34,6 @@ class LoginActivity : BaseAuthActivity() , AuthContract.LoginView {
         }
 
         //presenter
-        presenter = LoginPresenter(LoginInteractorImpl())
         presenter.attacheView(this)
 
         //register button
@@ -54,7 +56,7 @@ class LoginActivity : BaseAuthActivity() , AuthContract.LoginView {
     }
 
     override fun showError(msgError: String) {
-        msgSnackBar(0,msgError)
+        functions.msgSnackBar(0,msgError,findViewById<View>(android.R.id.content))
         //Toast.makeText(this, msgError, Toast.LENGTH_SHORT).show()
     }
 
@@ -74,14 +76,14 @@ class LoginActivity : BaseAuthActivity() , AuthContract.LoginView {
         val pass:String = (findViewById<TextInputLayout>(R.id.pass)).editText?.text.toString().trim()
 
         if(presenter.checkEmptyFields(email,pass))
-            msgSnackBar(R.string.logInMsg1,"")
+            functions.msgSnackBar(R.string.logInMsg1,"",findViewById<View>(android.R.id.content))
             //val contextView = findViewById<View>(R.id.main)
             //Snackbar.make(contextView, R.string.logInMsg1, Snackbar.LENGTH_SHORT).show()
 
             //Toast.makeText(this, "Favor Ingrese su Email y Contraseña", Toast.LENGTH_SHORT).show()
         else {
-            if(!validEmail(email))
-                msgSnackBar(R.string.logInMsg2,"")
+            if(!functions.validEmail(email))
+                functions.msgSnackBar(R.string.logInMsg2,"",findViewById<View>(android.R.id.content))
                 //Toast.makeText(this, "Debe ingresar un email válido",Toast.LENGTH_LONG).show()
             else
                 presenter.loginEmailAndPassword(email, pass)
@@ -100,23 +102,5 @@ class LoginActivity : BaseAuthActivity() , AuthContract.LoginView {
         startActivity(Intent(this, ForgotPassActivity::class.java))
     }
 
-    private fun validEmail(email: String): Boolean {
 
-        val pattern: Pattern = Patterns.EMAIL_ADDRESS
-        val result:Boolean = pattern.matcher(email).matches()
-        return result
-    }
-
-    private fun msgSnackBar(msg:Int, msgText:String){
-
-        val contextView = findViewById<View>(R.id.main)
-        if(msg==0)
-            Snackbar.make(contextView, msgText, Snackbar.LENGTH_SHORT).setAction(R.string.logInSnackText) {
-                // Responds to click on the action
-            }.show()
-         else
-            Snackbar.make(contextView, msg, Snackbar.LENGTH_SHORT).setAction(R.string.logInSnackText) {
-                // Responds to click on the action
-            }.show()
-    }
 }

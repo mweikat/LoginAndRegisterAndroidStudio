@@ -2,15 +2,11 @@ package teno.app.loginandregisterandroidstudio.auth.register
 
 import teno.app.loginandregisterandroidstudio.auth.AuthContract
 import teno.app.loginandregisterandroidstudio.auth.interactors.registerInteractor.RegisterInteractor
+import javax.inject.Inject
 
-class RegisterPresenter(registerInteractor: RegisterInteractor):AuthContract.RegisterPresenter {
+class RegisterPresenter @Inject constructor(private var registerInteractor: RegisterInteractor):AuthContract.RegisterPresenter {
 
     var view:AuthContract.RegisterView? = null
-    private var registerInteractor: RegisterInteractor? = null
-
-    init{
-        this.registerInteractor = registerInteractor
-    }
 
     override fun attacheView(view: AuthContract.RegisterView) {
         this.view = view
@@ -26,7 +22,7 @@ class RegisterPresenter(registerInteractor: RegisterInteractor):AuthContract.Reg
 
     override fun registerEmailAndPassword(email: String, password: String, name: String, lastName: String) {
         view?.showProgressBar()
-        registerInteractor?.registerWhitEmailAndPass(email,password,name,lastName, object:RegisterInteractor.RegisterCallBack{
+        registerInteractor.registerWhitEmailAndPass(email,password,name,lastName, object:RegisterInteractor.RegisterCallBack{
             override fun onRegisterSuccess() {
                 if(isViewAttached()){
                     view?.hideProgressBar()

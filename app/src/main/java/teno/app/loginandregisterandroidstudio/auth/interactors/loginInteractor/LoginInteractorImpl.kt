@@ -1,5 +1,6 @@
 package teno.app.loginandregisterandroidstudio.auth.interactors.loginInteractor
 
+import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Call
@@ -7,13 +8,11 @@ import teno.app.loginandregisterandroidstudio.auth.interactors.ApiAuthServices
 import teno.app.loginandregisterandroidstudio.auth.interactors.loginInteractor.reqandres.LoginRequest
 import teno.app.loginandregisterandroidstudio.auth.interactors.loginInteractor.reqandres.LoginResponse
 import java.net.SocketTimeoutException
+import javax.inject.Inject
 
-
-class LoginInteractorImpl : LoginInteractor {
-
-    private val apiservice: ApiAuthServices by lazy{
-        ApiAuthServices.create()
-    }
+class LoginInteractorImpl @Inject constructor(
+    var apiservice : ApiAuthServices
+): LoginInteractor {
 
     override fun loginWhitEmailAndPassword(email: String, password: String, listener: LoginInteractor.LoginCallBack) {
         val loginRequest = LoginRequest(email, password)

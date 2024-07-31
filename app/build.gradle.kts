@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.dagger.hilt.android")
+    id("kotlin-kapt")
 
 }
 
@@ -63,19 +65,29 @@ dependencies {
     implementation(libs.androidx.appcompat)
     //material
     implementation(libs.material)
+
+    //Hilt
+
+    //implementation ("com.google.dagger:hilt-android-compiler:2.44")
+    //kapt ("com.google.dagger:hilt-android-compiler:2.50")
+
+    implementation ("com.google.dagger:hilt-android:2.50")
+    kapt ("com.google.dagger:hilt-android-compiler:2.50")
+    //implementation(libs.hilt.android)
+    //implementation(libs.hilt.android.compiler)
+
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.annotation)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
-
-
-
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+}
 
-
+kapt {
+    correctErrorTypes = true
 }

@@ -28,7 +28,7 @@ interface ApiAuthServices {
     fun postForgetPassEmail(@Body request: ForgotRq):
             Call<ForgotRes>
 
-    companion object Factory{
+    /*companion object Factory{
         private const val BASE_URL:String = BuildConfig.API_BASE_URL;
 
         fun create(): ApiAuthServices {
@@ -39,5 +39,5 @@ interface ApiAuthServices {
 
             return retrofit.create(ApiAuthServices::class.java)
         }
-    }
+    }*/
 }

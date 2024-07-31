@@ -17,6 +17,9 @@ lifecycleViewmodelKtx = "2.8.3"
 hiltAndroid = "2.51.1"
 hiltCompiler = "2.51.1"
 calligraphy = "2.3.0"
+datastoreCoreAndroid = "1.1.1"
+datastorePreferencesAndroid = "1.1.1"
+hiltAndroidCompiler = "2.51.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -32,9 +35,12 @@ converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", ve
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltAndroid" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version = "2.44" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hiltCompiler" }
 calligraphy = { group = "uk.co.chrisjenx", name = "calligraphy", version.ref = "calligraphy" }
+androidx-datastore-core-android = { group = "androidx.datastore", name = "datastore-core-android", version.ref = "datastoreCoreAndroid" }
+androidx-datastore-preferences-android = { group = "androidx.datastore", name = "datastore-preferences-android", version.ref = "datastorePreferencesAndroid" }
+hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version = "2.44" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
