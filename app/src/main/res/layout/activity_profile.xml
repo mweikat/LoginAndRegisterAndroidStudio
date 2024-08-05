@@ -7,4 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".loggedIn.profile.ProfileActivity">
 
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="253dp"
+        android:layout_height="243dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Profile"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

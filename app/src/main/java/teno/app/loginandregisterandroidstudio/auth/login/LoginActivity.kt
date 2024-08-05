@@ -13,6 +13,7 @@ import teno.app.loginandregisterandroidstudio.auth.AuthContract
 import teno.app.loginandregisterandroidstudio.auth.BaseAuthActivity
 import teno.app.loginandregisterandroidstudio.auth.forgotPass.ForgotPassActivity
 import teno.app.loginandregisterandroidstudio.auth.register.RegisterActivity
+import teno.app.loginandregisterandroidstudio.common.session.SessionManager
 import teno.app.loginandregisterandroidstudio.common.utils.Functions
 import teno.app.loginandregisterandroidstudio.loggedIn.main.MainActivity
 import javax.inject.Inject
@@ -25,29 +26,37 @@ class LoginActivity : BaseAuthActivity() , AuthContract.LoginView {
 
     @Inject
     lateinit var functions: Functions
+    @Inject lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        (findViewById<Button>(teno.app.loginandregisterandroidstudio.R.id.btnLogin)).setOnClickListener{
-            sigIn()
+        val jwt = sessionManager.getJwt()!=null
+        if(!jwt) {
+            navigateToMain()
+        }else{
+
+            (findViewById<Button>(teno.app.loginandregisterandroidstudio.R.id.btnLogin)).setOnClickListener{
+                sigIn()
+            }
+
+            //presenter
+            presenter.attacheView(this)
+
+            //register button
+            val textRegister = findViewById<Button>(R.id.register)
+            textRegister.text = Html.fromHtml(getString(R.string.logInRegisterText),Html.FROM_HTML_MODE_COMPACT)
+            textRegister.setOnClickListener{
+                navigateToRegister()
+            }
+
+            val textForgotPass = findViewById<Button>(R.id.forgotBtn)
+            textForgotPass.text = Html.fromHtml(getString(R.string.logInForgot),Html.FROM_HTML_MODE_COMPACT)
+            textForgotPass.setOnClickListener{
+                navigateToForgotPass()
+            }
         }
 
-        //presenter
-        presenter.attacheView(this)
-
-        //register button
-        val textRegister = findViewById<Button>(R.id.register)
-        textRegister.text = Html.fromHtml(getString(R.string.logInRegisterText),Html.FROM_HTML_MODE_COMPACT)
-        textRegister.setOnClickListener{
-            navigateToRegister()
-        }
-
-        val textForgotPass = findViewById<Button>(R.id.forgotBtn)
-        textForgotPass.text = Html.fromHtml(getString(R.string.logInForgot),Html.FROM_HTML_MODE_COMPACT)
-        textForgotPass.setOnClickListener{
-            navigateToForgotPass()
-        }
 
     }
 

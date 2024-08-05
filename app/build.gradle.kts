@@ -60,13 +60,16 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    
+
     //material
     implementation(libs.material)
 
     //Hilt
     implementation ("com.google.dagger:hilt-android:2.50")
     kapt ("com.google.dagger:hilt-android-compiler:2.50")
+
+    //datastore
+    implementation(libs.androidx.datastore.preferences.android)
 
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)

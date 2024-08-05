@@ -1,6 +1,5 @@
 package teno.app.loginandregisterandroidstudio.auth.interactors.loginInteractor
 
-import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Call
@@ -9,6 +8,7 @@ import teno.app.loginandregisterandroidstudio.auth.interactors.loginInteractor.r
 import teno.app.loginandregisterandroidstudio.auth.interactors.loginInteractor.reqandres.LoginResponse
 import java.net.SocketTimeoutException
 import javax.inject.Inject
+import kotlin.coroutines.suspendCoroutine
 
 class LoginInteractorImpl @Inject constructor(
     var apiservice : ApiAuthServices
@@ -20,7 +20,7 @@ class LoginInteractorImpl @Inject constructor(
         call.enqueue(object: Callback<LoginResponse> {
             override fun onResponse(call : Call<LoginResponse>, response:Response<LoginResponse>){
                 if (response.isSuccessful){
-                    listener.onLoginSuccess()
+                    listener.onLoginSuccess(response.body())
                 }else{
                     listener.onLoginFailure(response.body()?.message.toString())
                 }
@@ -39,4 +39,5 @@ class LoginInteractorImpl @Inject constructor(
             }
         })
     }
+
 }
