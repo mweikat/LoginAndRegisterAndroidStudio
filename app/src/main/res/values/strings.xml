@@ -32,4 +32,6 @@
     <string name="forgotbtn">Send</string>
     <string name="forgotMsg1">Favor ingrese un mail asociado a su cuenta</string>
 
+    <string name="loggedMainOpen">Abrir</string>
+    <string name="loggedMainClose">Cerrar</string>
 </resources>

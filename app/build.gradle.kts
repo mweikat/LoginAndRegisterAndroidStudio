@@ -35,7 +35,7 @@ android {
             buildConfigField ("String", "API_BASE_URL", "\"https://api.parental.cl\"")
         }
         debug {
-            buildConfigField ("String", "API_BASE_URL", "\"http://192.168.0.26:8080\"")
+            buildConfigField ("String", "API_BASE_URL", "\"http://192.168.50.227:8080\"")
         }
     }
     compileOptions {

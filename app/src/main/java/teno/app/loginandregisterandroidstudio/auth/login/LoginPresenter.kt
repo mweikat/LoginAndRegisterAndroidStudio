@@ -29,6 +29,7 @@ class LoginPresenter @Inject constructor (private var loginInteractor: LoginInte
     }
 
     override fun loginEmailAndPassword(email: String, password: String) {
+        view?.navigateToMain()
         view?.showProgressBar()
         loginInteractor.loginWhitEmailAndPassword(email,password,object: LoginInteractor.LoginCallBack{
             override fun onLoginSuccess(loginResponse: LoginResponse?) {
